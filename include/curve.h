@@ -6,9 +6,9 @@
 class Curve {
 public:
     virtual ~Curve();
-    
-    virtual Point3D getPoint(double t) = 0;
-    virtual Vector3D getDerivative(double t) = 0;
+
+    virtual Point3D getPoint(double t) const = 0;
+    virtual Vector3D getDerivative(double t) const = 0;
 
     Curve(const Curve&) = delete;
     Curve& operator=(const Curve&) = delete;
