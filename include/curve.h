@@ -1,7 +1,7 @@
 #ifndef CURVE_H
 #define CURVE_H
 
-#include <geometry.h>
+#include "geometry.h"
 
 class Curve {
 public:
