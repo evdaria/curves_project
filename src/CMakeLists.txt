@@ -5,4 +5,4 @@ set(SOURCES
 )
 
 add_library(curves_lib ${SOURCES})
-target_include_directories(curves_lib PUBLIC ${CMAKE_SORCE_DIR}/include)
+target_include_directories(curves_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)
