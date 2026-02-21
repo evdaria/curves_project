@@ -5,7 +5,7 @@
 
 class Curve {
 public:
-    virtual ~Curve();
+    virtual ~Curve() = default;
 
     virtual Point3D getPoint(double t) const = 0;
     virtual Vector3D getDerivative(double t) const = 0;
