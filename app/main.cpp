@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include <random>
+#include <algorithm>
 #include "circle.h"
 #include "ellipse.h"
 #include "helix.h"
@@ -22,15 +23,17 @@ int main() {
 
     try {
         std::cout << "Generate curves: " << std::endl;
+        int countCircles = 0;
         bool circle = false;
         bool ellipse = false;
         bool helix = false;
-        while (!(circle && ellipse && helix)) {
+        while (!(circle && ellipse && helix) || countCircles < 3) {
             int curveType = type(gen);
 
             switch (curveType)
             {
             case 0: {
+                countCircles++;
                 circle = true;
                 double circleRadius = radius(gen);
                 curves.push_back(std::make_shared<Circle>(circleRadius));
@@ -75,6 +78,32 @@ int main() {
         std::cout << "Curve " << index++ << ":" << std::endl;
         std::cout << " point: (" << p.x << ", " << p.y << ", " << p.z << ")" << std::endl;
         std::cout << " derivative: (" << d.dx << ", " << d.dy << ", " << d.dz << ")" << std::endl;
+    }
+
+    std::vector<std::shared_ptr<Circle>> circles;
+
+    for (const auto& curve : curves) {
+        auto circle = std::dynamic_pointer_cast<Circle>(curve);
+        if (circle) {
+            circles.push_back(circle);
+        }
+    }
+
+    if (!circles.empty()) {
+        std::sort(circles.begin(), circles.end(), 
+            [](const auto& a, const auto& b) {return a->getRadius() < b->getRadius();}
+        );
+
+        std::cout << "\nCircles sorted by radius:\n";
+        for (const auto& circle : circles) {
+            std::cout << "  radius = " << circle->getRadius() << "\n";
+        }
+
+        double sum = 0.0;
+        for (const auto& circle : circles) {
+            sum += circle->getRadius();
+        }
+        std::cout << "\nSum of radius: " << sum << std::endl;
     }
 
     return 0;
