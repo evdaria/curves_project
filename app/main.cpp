@@ -12,8 +12,6 @@ const double MIN_STEP = 0.1;
 const double MAX_STEP = 5;
 
 int main() {
-    std::cout << "Hello, Curves project!" << std::endl;
-
     std::vector<std::shared_ptr<Curve>> curves;
 
     std::random_device rd;
@@ -23,6 +21,7 @@ int main() {
     std::uniform_real_distribution<> step(MIN_STEP, MAX_STEP);
 
     try {
+        std::cout << "Generate curves: " << std::endl;
         bool circle = false;
         bool ellipse = false;
         bool helix = false;
@@ -57,9 +56,25 @@ int main() {
             }
         }
 
+        std::cout << "Total curves: " << curves.size() << std::endl;
+
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
+    }
+
+    const double t = M_PI / 4.0;
+
+    std::cout << "\nCurves point and derivative: " << std::endl;
+
+    int index = 1;
+    for (const auto& curve : curves) {
+        Point3D p = curve->getPoint(t);
+        Vector3D d = curve->getDerivative(t);
+
+        std::cout << "Curve " << index++ << ":" << std::endl;
+        std::cout << " point: (" << p.x << ", " << p.y << ", " << p.z << ")" << std::endl;
+        std::cout << " derivative: (" << d.dx << ", " << d.dy << ", " << d.dz << ")" << std::endl;
     }
 
     return 0;
