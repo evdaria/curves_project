@@ -2,6 +2,7 @@
 #include <memory>
 #include "circle.h"
 #include "ellipse.h"
+#include "helix.h"
 
 int main() {
     std::cout << "Hello, Curves project!" << std::endl;
